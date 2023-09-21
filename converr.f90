@@ -77,7 +77,7 @@ contains
      integer(i_kind):: ier
 
      !======================================
-     ! klukens
+     ! Loon
      integer(i_kind),parameter     :: loon_id = 599
      !======================================
 
@@ -103,7 +103,7 @@ contains
 100     format(1x,i3)
         lcount=lcount+1
         do k=1,33
-           if(itypex==loon_id) write(6,*) 'KATIE converr: LOON error table read: ',etabl(itypex,13,4)
+           if(itypex==loon_id) write(6,*) 'converr: LOON error table read: ',etabl(itypex,13,4)    ! Loon
            read(ietabl,110)(etabl(itypex,k,m),m=1,6)
 110        format(1x,6e12.5)
         end do
