@@ -3,8 +3,8 @@
 ########################
 
 Coauthors:
-  Katherine E. Lukens       NOAA/NESDIS Center for Satellite Applications and Research (STAR), University of Maryland/Cooperative Institute for Satellite Earth System Studies (CISESS)
-  Kayo Ide                  University of Maryland
+  Katherine E. Lukens       NOAA/NESDIS Center for Satellite Applications and Research (STAR), University of Maryland/Cooperative Institute for Satellite Earth System Studies (CISESS);
+  Kayo Ide                  University of Maryland;
   Kevin Garrett             NOAA/NESDIS Center for Satellite Applications and Research (STAR)
 
 Acknowledgments: 
