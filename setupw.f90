@@ -85,7 +85,7 @@ subroutine setupw(obsLL,odiagLL,lunin,mype,bwork,awork,nele,nobs,is,conv_diagsav
    logical                                          ,intent(in   ) :: conv_diagsave ! logical to save innovation dignostics
 
   !=====================================
-  ! klukens
+  ! Loon
   integer(i_kind),parameter:: loon_id = 599
   !=====================================
 
@@ -1184,11 +1184,10 @@ subroutine setupw(obsLL,odiagLL,lunin,mype,bwork,awork,nele,nobs,is,conv_diagsav
            nn=2
            if(ratio_errors*error >=tiny_r_kind)nn=3
         end if
-                !write(6,*) 'KATIE: setupw npresprint=',npres_print
         !===========================================
-        ! klukens
+        ! Loon
         if(itype==loon_id) then
-           write(6,*) 'KATIE setupw: asm 1, rej 2, mon 3: nn=',nn,'...spdb=',spdb,'...ressw=',ressw,'...uob=',uob,'...vob=',vob,'...ugesin=',ugesin,'...vgesin=',vgesin,'...dudiff=',dudiff,'...dvdiff=',dvdiff,',muse(',i,')=',muse(i),',ratio_errors=',ratio_errors,',error=',error
+           write(6,*) 'setupw Loon: asm 1, rej 2, mon 3: nn=',nn,'...spdb=',spdb,'...ressw=',ressw,'...uob=',uob,'...vob=',vob,'...ugesin=',ugesin,'...vgesin=',vgesin,'...dudiff=',dudiff,'...dvdiff=',dvdiff,',muse(',i,')=',muse(i),',ratio_errors=',ratio_errors,',error=',error
         end if
         !===========================================
         do k = 1,npres_print
