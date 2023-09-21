@@ -35,4 +35,5 @@ Loon-related Code Explanations:
   setupw.f90 - script that computes biases and other statistics at observation locations. "loon_id" variable is added to perform such statistics on Loon wind observations.
 
 ----- How to cite this code -----
+
 Lukens, K. E., K. Ide, and K. Garrett, 2023: Investigation into the Potential Value of Stratospheric Balloon Winds Assimilated in NOAA’s Finite-Volume Cubed-Sphere Global Forecast System (FV3GFS), Journal of Geophysical Research: Atmospheres, e2022JD037526, https://doi.org/10.1029/2022JD037526.
