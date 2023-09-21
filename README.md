@@ -15,6 +15,7 @@ Acknowledgments:
   Erin Jones, Hui Liu, Ross N. Hoffman, Kate Howard, Chris Barnet, Likun Wang, the Loon team (Max Kamenetsky, James Antifaev, Sal Candido, Rob Carver, and Nikolai Chernyy)
 
 ########################
+
 Summary: Changes to the GSI source code in order to ingest and assimilate stratospheric superpressure balloon wind observations (from Loon, LLC)
 
 Loon-related Code Explanations:
