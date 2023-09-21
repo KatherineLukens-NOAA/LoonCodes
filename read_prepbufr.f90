@@ -245,7 +245,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
   character(80),parameter:: cspval= '88888888'
   
   !========================================
-  ! klukens
+  ! Loon
   integer(i_kind)		:: nproflread
   integer(i_kind), parameter	:: loon_id = 599
   !========================================
@@ -549,7 +549,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
           if (aircraft_t_bc) then
              aircrafttype=(ictype(nc) == 130 .or. ictype(nc) == 131 .or. (ictype(nc) >= 133 .and. ictype(nc)<140) .or. &
                            ictype(nc) == 230 .or. ictype(nc) == 231 .or. (ictype(nc) >= 233 .and. ictype(nc)<240) .or. &
-			   ictype(nc) == loon_id)	!klukens
+			   ictype(nc) == loon_id)	! Loon
              if (.not. acft_profl_file .and. aircrafttype) cycle    ! skip aircrafttype for prepbufr
              if (acft_profl_file .and. (.not. aircrafttype)) cycle  ! skip non-aircrafttype for prepbufr_profl
           end if
@@ -566,7 +566,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
            if (aircraft_t_bc) then
              aircrafttype=(ictype(nc) == 130 .or. ictype(nc) == 131 .or. (ictype(nc) >= 133 .and. ictype(nc)<140) .or. &
                            ictype(nc) == 230 .or. ictype(nc) == 231 .or. (ictype(nc) >= 233 .and. ictype(nc)<240) .or. &
-			   ictype(nc) == loon_id)	!klukens
+			   ictype(nc) == loon_id)	! Loon
               if (.not. acft_profl_file .and. aircrafttype) cycle    ! skip aircrafttype for prepbufr
               if (acft_profl_file .and. (.not. aircrafttype)) cycle  ! skip non-aircrafttype for prepbufr_profl
            end if
@@ -648,7 +648,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
               if (kx0==333 .or. kx0==433 .or. kx0==533) kx=233
               if (kx0==334 .or. kx0==434 .or. kx0==534) kx=234
               if (kx0==335 .or. kx0==435 .or. kx0==535) kx=235
-	      if (kx0==loon_id)				kx=loon_id	!klukens
+	      if (kx0==loon_id)				kx=loon_id	! Loon
            end if
         end if
         !* for new vad wind
@@ -816,7 +816,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
 
 ! loop over convinfo file entries; operate on matches
   
-  nproflread=0	!klukens
+  nproflread=0	! Loon
   
   allocate(cdata_all(nreal,maxobs),isort(maxobs))
   isort = 0
@@ -1004,7 +1004,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
                  call grdcrd1(dlon,rlons,nlon,1)
               endif
            else
-              if(kx == loon_id) then	!klukens
+              if(kx == loon_id) then	! Loon
 	        call ufbint(lunin,hdr3,3,1,levs,'XDR YDR HRDR')
 	      else
                 call ufbint(lunin,hdr3,3,255,levs,'XDR YDR HRDR')
@@ -1024,7 +1024,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
                  if (kx0==333 .or. kx0==433 .or. kx0==533) kx=233
                  if (kx0==334 .or. kx0==434 .or. kx0==534) kx=234
                  if (kx0==335 .or. kx0==435 .or. kx0==535) kx=235
-		 if (kx0==loon_id)			   kx=loon_id	!klukens
+		 if (kx0==loon_id)			   kx=loon_id	! Loon
               end if
            endif
 
@@ -1103,7 +1103,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
            endif
      
 !          Extract data information on levels
-	   if(kx==loon_id) then		!klukens
+	   if(kx==loon_id) then		! Loon
 	      call ufbint(lunin,obsdat,13,1,levs,obstr)
 	   else
               call ufbint(lunin,obsdat,13,255,levs,obstr)
@@ -1116,12 +1116,12 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
            if(kx==224 .and. newvad) then
               call ufbint(lunin,fcstdat,3,255,levs,'UFC VFC TFC ')
            end if
-	   if(kx==loon_id) then		!klukens
+	   if(kx==loon_id) then		! Loon
 	      call ufbint(lunin,qcmark,8,1,levs,qcstr)
               call ufbint(lunin,obserr,8,1,levs,oestr)
              	obserr(5,1)=2.0     !reset obserr=0 to obserr=2 m/s like for raobs
               IF(qcmark(5,1)>qcmark_huge) qcmark(:,1)=-999.
-	      write(6,*) 'KATIE readprepbufr: qcmark(uv)=',qcmark(:,1),',obserr(uv)=',obserr(5,1)   
+	      write(6,*) 'readprepbufr Loon: qcmark(uv)=',qcmark(:,1),',obserr(uv)=',obserr(5,1)   
 	   else
               call ufbint(lunin,qcmark,8,255,levs,qcstr)
               call ufbint(lunin,obserr,8,255,levs,oestr)
@@ -1129,14 +1129,14 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
            call ufbevn(lunin,tpc,1,255,20,levs,'TPC')
 
 	   !===============================
-	   ! klukens
+	   ! Loon
 	   if(kx==loon_id) oberrflg=.true.
 	   !===============================
 
 !          If available, get obs errors from error table
            if(oberrflg .and. kx==loon_id)then
 
-                write(6,*) 'KATIE: read_prepbufr Loon: oberrflg=',oberrflg
+                write(6,*) 'read_prepbufr Loon: oberrflg=',oberrflg	! Loon
 
 !             Set lower limits for observation errors
               terrmin=half
@@ -1254,16 +1254,12 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
 !                         write(6,*) 'READ_PREPBUFR:220_uv,obserr,var_jb=',obserr(5,k),var_jb(5,k),ppb,k2_uv,del_uv
 !                      endif
 
-                        write(6,*) 'KATIE: read_prepbufr njqc obserr=',obserr(5,k)
-                        write(6,*) 'KATIE: read_prepbufr njqc var_jb=',var_jb(5,k)
-
                    enddo
                 endif
                 
              else
                 do k=1,levs
                    itypex=kx
-		   	write(6,*) 'KATIE: read_prepbufr oberrflg IF: itypex=Loon=',itypex
                    ppb=obsdat(1,k)
                    if(kx==153)ppb=obsdat(11,k)*0.01_r_kind
                    ppb=max(zero,min(ppb,r2000))
@@ -1291,9 +1287,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
                    obserr(5,k)=max(obserr(5,k),werrmin)
                    obserr(1,k)=max(obserr(1,k),perrmin)
                    obserr(7,k)=max(obserr(7,k),pwerrmin)
-		   
-		   write(6,*) 'KATIE: read_prepbufr NOnjqc obserr=',obserr(5,k)
-			
+		   		
                 enddo
              endif      ! endif for njqc
            endif        ! endif for oberrflg
@@ -1304,15 +1298,15 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
 ! raob level enhancement on temp and q obs 
            if(ext_sonde .and. kx==120) call sonde_ext(obsdat,tpc,qcmark,obserr,drfdat,levs,kx,vtcd)
 
-	   if(kx==loon_id) then         !klukens
+	   if(kx==loon_id) then         ! Loon
               nproflread = nproflread+1
-              write(6,*) 'KATIE readprepbufr: n profiles read(nproflread)=',nproflread,',index imsg loop (outer)=',nmsg,',index ireadsb loop (inner)=',ntb,',hdr(2)=lat/lon=',hdr(2),',hdr(3)=lat/lon=',hdr(3)
+              write(6,*) 'readprepbufr Loon: n profiles read(nproflread)=',nproflread,',index imsg loop (outer)=',nmsg,',index ireadsb loop (inner)=',ntb,',hdr(2)=lat/lon=',hdr(2),',hdr(3)=lat/lon=',hdr(3)
            endif
 
            nread=nread+levs
            aircraftobs = (kx==130) .or. (kx==131) .or. (kx>=133 .and. kx<140) .or. &
                          (kx==230) .or. (kx==231) .or. (kx>=233 .and. kx<240) .or. &
-			 (kx==loon_id)		!klukens
+			 (kx==loon_id)		! Loon
            aircraftobst = .false.
            if(uvob)then
               nread=nread+levs
@@ -1771,7 +1765,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
                  endif
               end if
 	      !==================================================
-	      ! klukens
+	      ! Loon
 	      if(kx==loon_id  &
                  .and. ((uvob .and. levs == 1) .or. ithinp))then
 !                Interpolate guess pressure profile to observation location
@@ -1790,7 +1784,7 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
                               w10*prsl_full(klatp1,klon1 ,kk) + &
                               w01*prsl_full(klat1 ,klonp1,kk) + &
                               w11*prsl_full(klatp1,klonp1,kk)
-                        !write(6,*) 'KATIE readprepbufr: PRESL kx=',kx,',presl(',kk,')=',presl(kk),',pressure(1,1)=',obsdat(1,1)
+                        !write(6,*) 'readprepbufr Loon: PRESL kx=',kx,',presl(',kk,')=',presl(kk),',pressure(1,1)=',obsdat(1,1)
                  end do
 
 !                Compute depth of guess pressure layersat observation location
@@ -1843,9 +1837,9 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
                  endif
               endif
 
-              if ((kx>129.and.kx<140).or.(kx>229.and.kx<240).or.(kx==loon_id)) then	!klukens
+              if ((kx>129.and.kx<140).or.(kx>229.and.kx<240).or.(kx==loon_id)) then	! Loon
                  call get_aircraft_usagerj(kx,obstype,c_station_id,usage)
-                 if(kx==loon_id) write(6,*) 'KATIE: read_prepbufr aircraft usage=',usage        !klukens
+                 if(kx==loon_id) write(6,*) 'read_prepbufr (Loon) usage=',usage        ! Loon
               endif
               if(plevs(k) < 0.0001_r_kind) then
                  write(*,*) 'warning: obs pressure is too small:',kx,k,plevs(k)
@@ -2004,7 +1998,6 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
               else if(uvob) then 
                  if (aircraftobs .and. aircraft_t_bc .and. acft_profl_file) then
                     call errormod_aircraft(pqm,wqm,levs,plevs,errout,k,presl,dpres,nsig,lim_qm,hdr3)
-                 !       write(6,*) 'KATIE: read_prepbufr errout=',errout
                  else
                     call errormod(pqm,wqm,levs,plevs,errout,k,presl,dpres,nsig,lim_qm)
                  end if
@@ -2094,8 +2087,8 @@ subroutine read_prepbufr(nread,ndata,nodata,infile,obstype,lunout,twindin,sis,&
                  endif
 
                  if(kx==loon_id) then
-                    write(6,*) 'KATIE readprepbufr: cdata_all: nc=type=',nc,',uob=',uob,',vob=',vob,',usage=',usage,',obserr(5,k)=',obserr(5,k),',wqm(k)=',wqm(k),',oelev=ht=',oelev,',woe=',woe,',nproflread=',nproflread
-                    write(6,*) 'KATIE readprepbufr: cdata_all: nc=type=',nc,',dlnpob=',dlnpob,',rstation_id=',rstation_id,',ndata(ndata retained)=',ndata,',nodata(total ndata read)=',nodata,',iout=',iout
+                    write(6,*) 'readprepbufr Loon: cdata_all: nc=type=',nc,',uob=',uob,',vob=',vob,',usage=',usage,',obserr(5,k)=',obserr(5,k),',wqm(k)=',wqm(k),',oelev=ht=',oelev,',woe=',woe,',nproflread=',nproflread
+                    write(6,*) 'readprepbufr Loon: cdata_all: nc=type=',nc,',dlnpob=',dlnpob,',rstation_id=',rstation_id,',ndata(ndata retained)=',ndata,',nodata(total ndata read)=',nodata,',iout=',iout
                  end if
 
                  cdata_all(1,iout)=woe                     ! wind error
